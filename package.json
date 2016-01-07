@@ -1,0 +1,24 @@
+{
+  "name": "cheerio-tableparser",
+  "version": "0.0.7",
+  "description": "table parser plugin for cheerio",
+  "main": "index.js",
+  "keywords": [
+    "cheerio",
+    "tableparser",
+    "parse",
+    "parser",
+    "table",
+    "tables",
+    "html",
+    "parser",
+    "htmlparser",
+    "scraper"
+  ],
+  "author": "Mister Parser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misterparser/cheerio-tableparser.git"
+  },
+  "license": "MIT"
+}

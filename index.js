@@ -1,3 +1,13 @@
+/*!
+ * cheerio-tableparser
+ * https://github.com/misterparser/cheerio-tableparser
+ * https://www.npmjs.com/package/cheerio-tableparser
+ *
+ * Copyright (c) 2011 Francis Chong
+ * Copyright (c) 2016 Mister Parser
+ * Licensed under the MIT licenses.
+ *
+ */
 module.exports = function($) {
     $.prototype.parsetable = function(dupCols, dupRows, textMode) {
         if (dupCols === undefined) dupCols = false;

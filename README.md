@@ -1,6 +1,6 @@
 # cheerio-tableparser
 
-HTML table parser. Most popular cheerio plugin in the world! Port of [jquery.tableparser](https://github.com/siuying/jquery.tableparser) plugin to cheerio.
+Most popular cheerio plugin in the world! Port of [jquery.tableparser](https://github.com/siuying/jquery.tableparser) plugin to cheerio.
 
 ## Installation
 `npm install --save cheerio cheerio-tableparser`
@@ -10,30 +10,31 @@ Parsing HTML table could be difficult when its structure contains colspan or row
 Cheerio-tableparser parse HTML tables, group them by columns, with colspan and rowspan respected.
 ```js
 var cheerio = require('cheerio'),
-    cheerioTableparser = require('cheerio-tableparser'),
-    $ = cheerio.load("<table id='complex'> \
-          <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr> \
-          <tr><td rowspan='5'>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr> \
-          <tr><td rowspan='2' colspan='2'>2b</td><td>4b</td><td>5b</td></tr> \
-          <tr><td rowspan='2'>4c</td><td>5c</td></tr> \
-          <tr><td rowspan='2'>2d</td><td>3d</td><td>5d</td></tr> \
-          <tr><td>3e</td><td>4e</td><td>5e</td></tr> \
-        </table>");
+    cheerioTableparser = require('cheerio-tableparser');
+
+$ = cheerio.load("<table id='complex'> \
+      <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr> \
+      <tr><td rowspan='5'>1a</td><td>2a</td><td>3a</td><td>4a</td><td>5a</td></tr> \
+      <tr><td rowspan='2' colspan='2'>2b</td><td>4b</td><td>5b</td></tr> \
+      <tr><td rowspan='2'>4c</td><td>5c</td></tr> \
+      <tr><td rowspan='2'>2d</td><td>3d</td><td>5d</td></tr> \
+      <tr><td>3e</td><td>4e</td><td>5e</td></tr> \
+    </table>");
 
 cheerioTableparser($);
-var data = $("#complex").parsetable(false, false, false);
+var data = $("#complex").parsetable(true, true, false);
 //data = >
-//[ [ 'A', '1', '', '', '', '' ],
-//  [ 'B', '2', '2b', '', '2d', '' ],
-//  [ 'C', '3', '', '', '3d', '3e' ],
-//  [ 'D', '4', '4b', '4c', '', '4e' ],
-//  [ 'E', '5', '5b', '5c', '5d', '5e' ] ]
+//[ [ 'A', '1a', '1a', '1a', '1a', '1a' ],
+//  [ 'B', '2a', '2b', '2b', '2d', '2d' ],
+//  [ 'C', '3a', '2b', '2b', '3d', '3e' ],
+//  [ 'D', '4a', '4b', '4c', '4c', '4e' ],
+//  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
 
 
 ## Features
-&#9166; __Easy to use:__
+&#9786; __Easy to use:__
 You just need cheerio and cheerio-tablerparser to parse complex tables, as easy as JSON.parse(). You get array of columns.
 
 &#9881; __Configurable:__
@@ -50,8 +51,9 @@ Cheerio-tableparser used only for tables created with “table” tag. In other 
 
 ```js
 var cheerio = require('cheerio'),
-    cheerioTableparser = require('cheerio-tableparser'),
-    $ = cheerio.load("<table></table>");
+    cheerioTableparser = require('cheerio-tableparser');
+
+$ = cheerio.load("<table></table>");
 
 cheerioTableparser($);
 data = $("table").parsetable();
@@ -59,20 +61,20 @@ data = $("table").parsetable();
 ```
 
 ### .parsetable(dupCols, dupRows, textMode)
-- `dupCols`: if true empty cells will be copy of left not empty column. If false empty cell. Default: false.
-- `dupRows`: if true empty cells will be copy of upper row. If false empty cell. Default: false.
+- `dupCols`: if true empty cells will be copy of left filled column. If false empty cell. Default: false.
+- `dupRows`: if true empty cells will be copy of upper filled row. If false empty cell. Default: false.
 - `textMode `: if true result will be text same as cell $("td").text(). If false result will be HTML same as cell $("td").html(). Default: false.
 
 
-### Example table:
+### Example table
     |-------------------|
     | A | B | C | D | E |
     |-------------------|
-    |   | 2 | 3 | 4 | 5 |
+    |   | 2a| 3a| 4a| 5a|
     |   |---------------|
     |   |       | 4b| 5b|
     |   |   2b  |-------|
-    | 1 |       |   | 5c|
+    | 1a|       |   | 5c|
     |   |-------| 4c|---|
     |   |   | 3d|   | 5d|
     |   | 2d|-----------|
@@ -82,82 +84,85 @@ data = $("table").parsetable();
 #### Load data and add plugin
 ```js
 var cheerio = require('cheerio'),
-    cheerioTableparser = require('cheerio-tableparser'),
-    $ = cheerio.load("<table id='complex'> \
-          <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr> \
-          <tr><td rowspan='5'>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr> \
-          <tr><td rowspan='2' colspan='2'>2b</td><td>4b</td><td>5b</td></tr> \
-          <tr><td rowspan='2'>4c</td><td>5c</td></tr> \
-          <tr><td rowspan='2'>2d</td><td>3d</td><td>5d</td></tr> \
-          <tr><td>3e</td><td>4e</td><td>5e</td></tr> \
-        </table>");
+    cheerioTableparser = require('cheerio-tableparser');
+
+$ = cheerio.load("<table id='complex'> \
+      <tr><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr> \
+      <tr><td rowspan='5'>1a</td><td>2a</td><td>3a</td><td>4a</td><td>5a</td></tr> \
+      <tr><td rowspan='2' colspan='2'>2b</td><td>4b</td><td>5b</td></tr> \
+      <tr><td rowspan='2'>4c</td><td>5c</td></tr> \
+      <tr><td rowspan='2'>2d</td><td>3d</td><td>5d</td></tr> \
+      <tr><td>3e</td><td>4e</td><td>5e</td></tr> \
+    </table>");
 
 cheerioTableparser($);
 ```
 
-#### Copy empty cells from data in columns
+#### Default usage no copy
+```js
+var data = $("#complex").parsetable(); // same as .parsetable(false, false, false);
+//data = >
+//[ [ 'A', '1a', '', '', '', '' ],
+//  [ 'B', '2a', '2b', '', '2d', '' ],
+//  [ 'C', '3a', '', '', '3d', '3e' ],
+//  [ 'D', '4a', '4b', '4c', '', '4e' ],
+//  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
+```
+
+#### Copy data ONLY from UPPER row with filled cell
 
 ```js
 var data = $("#complex").parsetable(false, true, false);
 //data = >
-//[ [ 'A', '1', '1', '1', '1', '1' ],
-//  [ 'B', '2', '2b', '2b', '2d', '2d' ],
-//  [ 'C', '3', '', '', '3d', '3e' ],
-//  [ 'D', '4', '4b', '4c', '4c', '4e' ],
-//  [ 'E', '5', '5b', '5c', '5d', '5e' ] ]
+//[ [ 'A', '1a', '1a', '1a', '1a', '1a' ],
+//  [ 'B', '2a', '2b', '2b', '2d', '2d' ],
+//  [ 'C', '3a', '', '', '3d', '3e' ],
+//  [ 'D', '4a', '4b', '4c', '4c', '4e' ],
+//  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
-#### Copy empty cells from data in rows
+#### Copy data ONLY from LEFT column with filled cell
 
 ```js
 var data = $("#complex").parsetable(true, false, false);
 //data = >
-//[ [ 'A', '1', '', '', '', '' ],
-//  [ 'B', '2', '2b', '', '2d', '' ],
-//  [ 'C', '3', '2b', '', '3d', '3e' ],
-//  [ 'D', '4', '4b', '4c', '', '4e' ],
-//  [ 'E', '5', '5b', '5c', '5d', '5e' ] ]
+//[ [ 'A', '1a', '', '', '', '' ],
+//  [ 'B', '2a', '2b', '', '2d', '' ],
+//  [ 'C', '3a', '2b', '', '3d', '3e' ],
+//  [ 'D', '4a', '4b', '4c', '', '4e' ],
+//  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
-#### Copy empty cells from data in rows AND columns
+#### Copy data BOTH from LEFT column AND UPPER row filled cell
 
 ```js
 var data = $("#complex").parsetable(true, true, false);
 //data = >
-//[ [ 'A', '1', '1', '1', '1', '1' ],
-//  [ 'B', '2', '2b', '2b', '2d', '2d' ],
-//  [ 'C', '3', '2b', '2b', '3d', '3e' ],
-//  [ 'D', '4', '4b', '4c', '4c', '4e' ],
-//  [ 'E', '5', '5b', '5c', '5d', '5e' ] ]
+//[ [ 'A', '1a', '1a', '1a', '1a', '1a' ],
+//  [ 'B', '2a', '2b', '2b', '2d', '2d' ],
+//  [ 'C', '3a', '2b', '2b', '3d', '3e' ],
+//  [ 'D', '4a', '4b', '4c', '4c', '4e' ],
+//  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
-#### Default usage
-```js
-var data = $("#complex").parsetable(); // same as .parsetable(false, false, false);
-//data = >
-//[ [ 'A', '1', '', '', '', '' ],
-//  [ 'B', '2', '2b', '', '2d', '' ],
-//  [ 'C', '3', '', '', '3d', '3e' ],
-//  [ 'D', '4', '4b', '4c', '', '4e' ],
-//  [ 'E', '5', '5b', '5c', '5d', '5e' ] ]
-```
 ### Example HTML table:
 
     |-------------------------------------------------------------------|
     |        <strong>A</strong>       |       <strong>B</strong>        |
     |-------------------------------------------------------------------|
-    | <div class='table-text'>1</div> | <div class='table-text'>2</div> |
+    | <div class='table-text'>1a</div> | <div class='table-text'>2a</div> |
     |-------------------------------------------------------------------|
 
 
 #### Load data and add plugin
 ```js
 var cheerio = require('cheerio'),
-    cheerioTableparser = require('cheerio-tableparser'),
-    $ = cheerio.load("<table id='html'> \
-        <tr><td><strong>A</strong></td><td><strong>B</strong></td></tr> \
-        <tr><td><div class='table-text'>1</div></td><td><div class='table-text'>2</div></td></tr> \
-        </table>");
+    cheerioTableparser = require('cheerio-tableparser');
+
+$ = cheerio.load("<table id='html'> \
+    <tr><td><strong>A</strong></td><td><strong>B</strong></td></tr> \
+    <tr><td><div class='table-text'>1a</div></td><td><div class='table-text'>2a</div></td></tr> \
+    </table>");
 
 cheerioTableparser($);
 ```
@@ -166,21 +171,23 @@ cheerioTableparser($);
 ```js
 var data = $("#html").parsetable(false, false, false);
 //data = >
-//[ [ '<strong>A</strong>', '<div class="table-text">1</div>' ],
-//  [ '<strong>B</strong>', '<div class="table-text">2</div>' ] ]
+//[ [ '<strong>A</strong>', '<div class="table-text">1a</div>' ],
+//  [ '<strong>B</strong>', '<div class="table-text">2a</div>' ] ]
 ```
 
 #### Return data as Text
 ```js
 var data = $("#html").parsetable(false, false, true);
 //data = >
-//[ [ 'A', '1' ],
-//  [ 'B', '2' ] ]
+//[ [ 'A', '1a' ],
+//  [ 'B', '2a' ] ]
 ```
 
 ## License
 
 (The MIT License)
+
+Copyright (c) 2011 Francis Chong
 
 Copyright (c) 2016 Mister Parser
 

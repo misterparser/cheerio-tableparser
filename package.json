@@ -1,19 +1,13 @@
 {
   "name": "cheerio-tableparser",
-  "version": "0.0.7",
-  "description": "table parser plugin for cheerio",
+  "version": "0.0.8",
+  "description": "The tables parser plugin for cheerio",
   "main": "index.js",
   "keywords": [
     "cheerio",
     "tableparser",
-    "parse",
-    "parser",
-    "table",
     "tables",
-    "html",
-    "parser",
-    "htmlparser",
-    "scraper"
+    "htmlparser"
   ],
   "author": "Mister Parser",
   "repository": {

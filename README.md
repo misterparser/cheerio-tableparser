@@ -8,6 +8,23 @@ Most popular cheerio plugin in the world! Port of [jquery.tableparser](https://g
 ## Introduction
 Parsing HTML table could be difficult when its structure contains colspan or rowspan.
 Cheerio-tableparser parse HTML tables, group them by columns, with colspan and rowspan respected.
+
+### Example table
+    |-----------------------------|
+    |  A  |  B  |  C  |  D  |  E  |
+    |-----------------------------|
+    |     |  2a |  3a |  4a |  5a |
+    |     |-----------------------|
+    |     |           |  4b |  5b |
+    |     |     2b    |-----------|
+    |  1a |           |     |  5c |
+    |     |-----------|  4c |---- |
+    |     |     |  3d |     |  5d |
+    |     |  2d |-----------------|
+    |     |     |  3e |  4e |  5e |
+    |-----------------------------|
+
+
 ```js
 var cheerio = require('cheerio'),
     cheerioTableparser = require('cheerio-tableparser');
@@ -65,22 +82,6 @@ data = $("table").parsetable();
 - `dupRows`: if true empty cells will be copy of upper filled row. If false empty cell. Default: false.
 - `textMode `: if true result will be text same as cell $("td").text(). If false result will be HTML same as cell $("td").html(). Default: false.
 
-
-### Example table
-    |-------------------|
-    | A | B | C | D | E |
-    |-------------------|
-    |   | 2a| 3a| 4a| 5a|
-    |   |---------------|
-    |   |       | 4b| 5b|
-    |   |   2b  |-------|
-    | 1a|       |   | 5c|
-    |   |-------| 4c|---|
-    |   |   | 3d|   | 5d|
-    |   | 2d|-----------|
-    |   |   | 3e| 4e| 5e|
-    |-------------------|
-
 #### Load data and add plugin
 ```js
 var cheerio = require('cheerio'),
@@ -133,7 +134,7 @@ var data = $("#complex").parsetable(true, false, false);
 //  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
-#### Copy data BOTH from LEFT column AND UPPER row filled cell
+#### Copy data BOTH from LEFT column AND UPPER row with filled cell
 
 ```js
 var data = $("#complex").parsetable(true, true, false);
@@ -145,7 +146,7 @@ var data = $("#complex").parsetable(true, true, false);
 //  [ 'E', '5a', '5b', '5c', '5d', '5e' ] ]
 ```
 
-### Example HTML table:
+### Example HTML table
 
     |---------------------------------------------------------------------|
     |        <strong>A</strong>        |        <strong>B</strong>        |

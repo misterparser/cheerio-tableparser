@@ -80,7 +80,7 @@ data = $("table").parsetable();
 ### .parsetable(dupCols, dupRows, textMode)
 - `dupCols`: if true empty cells will be copy of left filled column. If false empty cell. Default: false.
 - `dupRows`: if true empty cells will be copy of upper filled row. If false empty cell. Default: false.
-- `textMode `: if true result will be text same as cell $("td").text(). If false result will be HTML same as cell $("td").html(). Default: false.
+- `textMode `: if true result will be text same as cell $("td").text().trim(). If false result will be HTML same as cell $("td").html(). Default: false.
 
 #### Load data and add plugin
 ```js

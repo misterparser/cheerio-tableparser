@@ -18,7 +18,7 @@ Cheerio-tableparser parse HTML tables, group them by columns, with colspan and r
     |     |           |  4b |  5b |
     |     |     2b    |-----------|
     |  1a |           |     |  5c |
-    |     |-----------|  4c |---- |
+    |     |-----------|  4c |-----|
     |     |     |  3d |     |  5d |
     |     |  2d |-----------------|
     |     |     |  3e |  4e |  5e |
@@ -39,7 +39,7 @@ $ = cheerio.load("<table id='complex'> \
     </table>");
 
 cheerioTableparser($);
-var data = $("#complex").parsetable(true, true, false);
+var data = $("#complex").parsetable(true, true, true);
 //data = >
 //[ [ 'A', '1a', '1a', '1a', '1a', '1a' ],
 //  [ 'B', '2a', '2b', '2b', '2d', '2d' ],
@@ -174,6 +174,17 @@ var data = $("#html").parsetable(false, false, false);
 //data = >
 //[ [ '<strong>A</strong>', '<div class="table-text">1a</div>' ],
 //  [ '<strong>B</strong>', '<div class="table-text">2a</div>' ] ]
+
+//To make jquery object from string use $('<div>' + data[0][0]+ '</div>');
+//additional "div" needed if data[0][0] is not valid html string.
+
+//Example:
+var strong = $('<div>' + data[0][0] + '</div>').find('strong').text();
+//strong = > 'A'
+
+var tableText = $('<div>' + data[0][1] + '</div>').find('.table-text').text();
+//tableText = > '1a'
+
 ```
 
 #### Return data as Text

@@ -18,7 +18,7 @@ module.exports = function($) {
             curr_x = 0,
             curr_y = 0;
 
-        $("tr", this).each(function(row_idx, row) {
+        $("tr, thead", this).each(function(row_idx, row) {
             curr_y = 0;
             $("td, th", row).each(function(col_idx, col) {
                 var rowspan = $(col).attr('rowspan') || 1;

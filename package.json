@@ -1,6 +1,6 @@
 {
   "name": "cheerio-tableparser",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "The tables parser plugin for cheerio",
   "main": "index.js",
   "keywords": [
